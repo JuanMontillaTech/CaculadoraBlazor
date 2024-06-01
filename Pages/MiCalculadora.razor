@@ -1,0 +1,49 @@
+﻿@page "/MiCalculadora"
+<h3>Calculadora</h3>
+<div> @displayValue </div>
+@foreach (var row in buttons)
+{
+    <div   class="row ">
+        @foreach (var labelBt in row)
+        {
+            <div class="  col-1">
+                <button class="btn btn-primary" @onclick="() => OnButtonClick(labelBt)">@labelBt</button>
+            </div>
+        }
+    </div>
+}
+
+@code {
+    public string displayValue = "0";
+    string[][] buttons = new string[][]
+    {
+        new string[] { "7", "8", "9", "+" },
+        new string[] { "4", "5", "6", "-" },
+        new string[] { "1", "2", "3", "*" },
+        new string[] { "C", "0", "=", "/" }
+    };
+
+    private void OnButtonClick(string labelBt)
+    {
+        switch (labelBt)
+        {
+            case "C":
+                displayValue = "0";
+                break;
+            case "=":
+                displayValue = CalcularResultado(); 
+                break;
+            default:
+                if (displayValue == "0")
+                    displayValue = "";
+                displayValue += labelBt;
+                break;
+        }
+    }
+
+    private string CalcularResultado() 
+    {
+        
+        return displayValue; 
+    }
+}
